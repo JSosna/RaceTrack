@@ -1,5 +1,7 @@
 import pygame
+import Car
 import math
+
 
 pygame.init()
 
@@ -53,37 +55,42 @@ right = False
 speedingUp = False
 slowingDown = False
 
-crashed = False
 
-while not crashed:
+firstCar = Car.Car("First car", carImg, 0, 0, 100, 100)
 
-    # x += dx
-    # y += dy
 
+while True:
 
     if speedingUp and speed < 7:
         speed += 0.1
+        firstCar.change_speed(0.1)
     elif slowingDown and speed > -4:
         speed -= 0.1
+        firstCar.change_speed(-0.1)
+        print(firstCar.speed)
 
     x, y = calculateNewPosition(speed, x, y)
 
     if left and (speed > 1 or speed < -1):
         if speed > 1:
             degrees += 2
+            firstCar.change_angle(2)
         elif speed < -1:
             degrees -= 2
+            firstCar.change_angle(-2)
     elif right and (speed > 1 or speed < -1):
         if speed > 1:
             degrees -= 2
+            firstCar.change_angle(-2)
         elif speed < -1:
             degrees += 2
+            firstCar.change_angle(2)
 
 
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            crashed = True
+            quit()
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
@@ -119,6 +126,7 @@ while not crashed:
 
     screen.fill(bg)
     # rotate_car(degrees, x, y)
+    firstCar.move()
     move_car(degrees, x, y)
     pygame.display.update()
     clock.tick(60)
