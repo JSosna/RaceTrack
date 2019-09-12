@@ -68,10 +68,16 @@ while not crashed:
 
     x, y = calculateNewPosition(speed, x, y)
 
-    if left:
-        degrees += 2
-    elif right:
-        degrees -= 2
+    if left and (speed > 1 or speed < -1):
+        if speed > 1:
+            degrees += 2
+        elif speed < -1:
+            degrees -= 2
+    elif right and (speed > 1 or speed < -1):
+        if speed > 1:
+            degrees -= 2
+        elif speed < -1:
+            degrees += 2
 
 
 
