@@ -9,6 +9,9 @@ info = pygame.display.Info()
 sw = 1600
 sh = 900
 
+# sw = 1200
+# sh = 700
+
 size = sw, sh
 bg = 15, 15, 30
 
@@ -18,10 +21,10 @@ clock = pygame.time.Clock()
 pygame.mouse.set_visible(False)
 
 carImg = pygame.image.load("car.png")
-firstCar = Car.Car("First car", carImg, 0, 0, 100, 100)
+firstCar = Car.Car("First car", carImg, 0, 0.95, 0.93, 100, 100)
 
 carImg2 = pygame.image.load("car2.png")
-secondCar = Car.Car("Second car", carImg2, 0, 0, 100, 200)
+secondCar = Car.Car("Second car", carImg2, 0, 0.98, 0.93, 100, 200)
 
 cars = [firstCar]
 
