@@ -9,8 +9,7 @@ class Car:
         self.carImg = car_img
         self.angle = degrees
         self.speed = speed
-        self.x = x
-        self.y = y
+        self.position = pygame.math.Vector2(x, y)
         self.maxSpeed = 6
         self.rotation = 2
         self.crashed = False
@@ -22,13 +21,13 @@ class Car:
         dx = math.cos(math.radians(self.angle))
         dy = math.sin(math.radians(self.angle))
 
-        return self.x + dx * self.speed, self.y - dy * self.speed
+        return self.position.x + dx * self.speed, self.position.y - dy * self.speed
 
     def move(self):
-        self.x, self.y = self.calculate_new_position()
+        self.position.x, self.position.y = self.calculate_new_position()
         rotation = pygame.transform.rotate(self.carImg, self.angle)
         rect = rotation.get_rect()
-        self.screen.blit(rotation, (self.x - (rect.width / 2), self.y - (rect.height / 2)))
+        self.screen.blit(rotation, (self.position.x - (rect.width / 2), self.position.y - (rect.height / 2)))
 
     def change_speed(self, value):
         self.speed += value
