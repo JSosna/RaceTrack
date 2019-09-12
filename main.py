@@ -33,7 +33,7 @@ def calculateNewPosition(speed, x, y):
     newX = math.cos(math.radians(degrees))
     newY = math.sin(math.radians(degrees))
 
-    return (x + newX * speed, y - newY * speed)
+    return x + newX * speed, y - newY * speed
 
 
 info = pygame.display.Info()
@@ -93,40 +93,16 @@ while True:
             quit()
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                speedingUp = True
-                slowingDown = False
-
-            elif event.key == pygame.K_DOWN:
-                speedingUp = False
-                slowingDown = True
-
-            if event.key == pygame.K_LEFT:
-                left = True
-                right = False
-
-            elif event.key == pygame.K_RIGHT:
-                right = True
-                left = False
+            firstCar.handle_keydown(event.key)
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                speedingUp = False
-
-            elif event.key == pygame.K_DOWN:
-                slowingDown = False
-
-            if event.key == pygame.K_LEFT:
-                left = False
-
-            elif event.key == pygame.K_RIGHT:
-                right = False
+            firstCar.handle_keyup(event.key)
 
         print(event)
 
     screen.fill(bg)
     # rotate_car(degrees, x, y)
-    firstCar.move()
+    firstCar.update()
     move_car(degrees, x, y)
     pygame.display.update()
     clock.tick(60)
