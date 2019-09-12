@@ -19,8 +19,11 @@ pygame.mouse.set_visible(False)
 
 carImg = pygame.image.load("car.png")
 firstCar = Car.Car("First car", carImg, 0, 0, 100, 100)
-# secondCar = Car.Car("Second car", carImg)
-# cars =
+
+carImg2 = pygame.image.load("car2.png")
+secondCar = Car.Car("Second car", carImg2, 0, 0, 100, 200)
+
+cars = [firstCar]
 
 while True:
     for event in pygame.event.get():
@@ -30,12 +33,20 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 quit()
-            firstCar.handle_keydown(event.key)
+            elif event.key == pygame.K_n:
+                cars.append(secondCar)
+            else:
+                for car in cars:
+                    car.handle_keydown(event.key)
 
         if event.type == pygame.KEYUP:
-            firstCar.handle_keyup(event.key)
+            for car in cars:
+                car.handle_keyup(event.key)
 
     screen.fill(bg)
-    firstCar.update()
+
+    for car in cars:
+        car.update()
+
     pygame.display.update()
     clock.tick(60)
