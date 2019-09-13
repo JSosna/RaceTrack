@@ -16,10 +16,11 @@ class Car:
         self.position.x = x
         self.position.y = y
         self.velocity = pygame.math.Vector2()
-        self.maxSpeed = 0.45
+        self.maxSpeed = 0.5
         self.drag = drag
         self.crashed = False
         self.motion = 'n'
+        self.brake = False
         self.turn = 'n'
         self.screen = pygame.display.get_surface()
 
@@ -46,6 +47,8 @@ class Car:
             self.motion = '+'
         elif key == pygame.K_DOWN:
             self.motion = '-'
+        elif key == pygame.K_SPACE:
+            self.brake = True
 
         elif key == pygame.K_LEFT:
             self.turn = 'l'
@@ -55,6 +58,9 @@ class Car:
     def handle_keyup(self, key):
         if (key == pygame.K_UP and self.motion == '+') or (key == pygame.K_DOWN and self.motion == '-'):
             self.motion = 'n'
+
+        elif key == pygame.K_SPACE:
+            self.brake = False
 
         elif (key == pygame.K_LEFT and self.turn == 'l') or (key == pygame.K_RIGHT and self.turn == 'r'):
             self.turn = 'n'
@@ -69,15 +75,19 @@ class Car:
         elif self.motion == '-' and self.power >= -self.maxSpeed/3:
             self.change_power(-0.005)
 
+        if self.brake and self.velocity.x != 0 and self.velocity.y != 0:
+            # self.velocity *= 0.97
+            self.power *= 0.93
+
         if self.turn == 'l':
-            if self.power > 0.005:
+            if self.power > 0.05:
                 self.change_angle(self.turn_speed)
-            elif self.power < -0.005:
+            elif self.power < -0.05:
                 self.change_angle(-self.turn_speed)
         elif self.turn == 'r':
-            if self.power > 0.005:
+            if self.power > 0.05:
                 self.change_angle(-self.turn_speed)
-            elif self.power < -0.005:
+            elif self.power < -0.05:
                 self.change_angle(self.turn_speed)
 
     def update(self):
