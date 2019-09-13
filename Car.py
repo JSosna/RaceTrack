@@ -16,7 +16,7 @@ class Car:
         self.position.x = x
         self.position.y = y
         self.velocity = pygame.math.Vector2()
-        self.maxSpeed = 0.5
+        self.maxSpeed = 0.45
         self.drag = drag
         self.crashed = False
         self.motion = 'n'
@@ -42,7 +42,7 @@ class Car:
     def change_angle(self, value):
         self.angular_velocity += value
 
-    def handle_keydown(self, key):
+    def handle_key_down(self, key):
         if key == pygame.K_UP:
             self.motion = '+'
         elif key == pygame.K_DOWN:
@@ -55,7 +55,7 @@ class Car:
         elif key == pygame.K_RIGHT:
             self.turn = 'r'
 
-    def handle_keyup(self, key):
+    def handle_key_up(self, key):
         if (key == pygame.K_UP and self.motion == '+') or (key == pygame.K_DOWN and self.motion == '-'):
             self.motion = 'n'
 
@@ -70,15 +70,18 @@ class Car:
         self.angular_velocity *= self.angular_drag
         self.velocity *= self.drag
 
+        # Speeding up, down
         if self.motion == '+' and self.power <= self.maxSpeed:
             self.change_power(0.005)
         elif self.motion == '-' and self.power >= -self.maxSpeed/3:
             self.change_power(-0.005)
 
+        # Breaking
         if self.brake and self.velocity.x != 0 and self.velocity.y != 0:
             # self.velocity *= 0.97
             self.power *= 0.93
 
+        # Turning
         if self.turn == 'l':
             if self.power > 0.05:
                 self.change_angle(self.turn_speed)
