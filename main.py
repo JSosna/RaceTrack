@@ -1,6 +1,7 @@
 import pygame
-import Car
-import Map
+import car
+import map
+import game
 
 pygame.init()
 
@@ -23,15 +24,15 @@ pygame.mouse.set_visible(False)
 
 mapImg = pygame.image.load("track1s.png")
 mapSized = pygame.transform.scale(mapImg, (1600, 900))
-firstMap = Map.Map("First", mapSized)
+firstMap = map.Map("First", mapSized)
 
 carImg = pygame.image.load("car.png")
 carSized = pygame.transform.rotozoom(carImg, 0, 0.5)
-firstCar = Car.Car("First car", carSized, 0, 0.95, 0.93, 100, 100)
+firstCar = car.Car("First car", carSized, 0, 0.95, 0.93, 100, 100)
 
 carImg2 = pygame.image.load("car2.png")
 carSized2 = pygame.transform.rotozoom(carImg2, 0, 0.5)
-secondCar = Car.Car("Second car", carSized2, 0, 0.95, 0.93, 100, 200)
+secondCar = car.Car("Second car", carSized2, 0, 0.95, 0.93, 100, 200)
 
 cars = [firstCar]
 
@@ -61,3 +62,8 @@ while True:
 
     pygame.display.update()
     clock.tick(60)
+
+
+if __name__ == '__main__':
+    game = Game()
+    game.load_game(1)
