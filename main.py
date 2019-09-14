@@ -14,7 +14,7 @@ sh = 900
 # sh = 700
 
 size = sw, sh
-bg = 170, 170, 200
+bg = 120, 180, 120
 
 screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
 pygame.display.set_caption("Race Track")
@@ -30,7 +30,8 @@ carSized = pygame.transform.rotozoom(carImg, 0, 0.5)
 firstCar = Car.Car("First car", carSized, 0, 0.95, 0.93, 100, 100)
 
 carImg2 = pygame.image.load("car2.png")
-secondCar = Car.Car("Second car", carImg2, 0, 0.98, 0.93, 100, 200)
+carSized2 = pygame.transform.rotozoom(carImg2, 0, 0.5)
+secondCar = Car.Car("Second car", carSized2, 0, 0.95, 0.93, 100, 200)
 
 cars = [firstCar]
 
@@ -43,7 +44,8 @@ while True:
             if event.key == pygame.K_ESCAPE:
                 quit()
             elif event.key == pygame.K_n:
-                cars.append(secondCar)
+                if(len(cars) == 1):
+                    cars.append(secondCar)
             else:
                 for car in cars:
                     car.handle_key_down(event.key)

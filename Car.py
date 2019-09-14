@@ -4,7 +4,7 @@ import math
 
 class Car:
 
-    def __init__(self, name, car_img, degrees, drag, angular_drag, x, y):
+    def __init__(self, name, steering, car_img, degrees, drag, angular_drag, x, y):
         self.name = name
         self.carImg = car_img
         self.angle = degrees
