@@ -23,8 +23,8 @@ def accept_connections():
     player_id = 0
     while True:
         client_connection, client_address = s.accept()
-        print(client_address + " has connected to the server!")
-        addresses[client_connection] = client_address
+        # print(client_address + " has connected to the server!")
+        # addresses[client_connection] = client_address
 
         Thread(target=handle_client, args=(client_connection, player_id)).start()
 
@@ -37,9 +37,9 @@ def handle_client(connection, player_id):
     global players_positions
 
     clients[connection] = player_id
-    print("Client got id: " + player_id)
+    print("Client got id: ", player_id)
 
-    connection.send(str.encode(player_id))
+    connection.send(str.encode(str(player_id)))
 
     while True:
         try:

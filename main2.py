@@ -18,4 +18,3 @@ if __name__ == '__main__':
     firstMap = Map("First", mapSized)
     game = Game(size, firstMap)
     game.load_game()
-
