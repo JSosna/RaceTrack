@@ -1,5 +1,4 @@
 import socket
-from threading import Thread
 
 
 class Client:
@@ -10,15 +9,18 @@ class Client:
         self.port = port
         self.id = self.connect()
 
-    # def receive(self):
-    #     while True:
-    #         try:
-    #             msg = self.s.recv(1024).decode("utf8")
-    #             print(msg)
-    #         except socket.error as e:
-    #             print("Error while receiving message: " + str(e))
-
     def connect(self):
         self.s.connect((self.host, self.port))
         return self.s.recv(1024).decode()
-        # receiveThread = Thread(target=self.receive).start()
+
+    def send(self, data):
+        """
+        :param data: str
+        :return: str
+        """
+        try:
+            self.s.send(str.encode(data))
+            reply = self.s.recv(1024).decode()
+            return reply
+        except socket.error as err:
+            print("Error in function 'send' in client.py" + str(err))

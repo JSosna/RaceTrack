@@ -13,7 +13,7 @@ server_ip = socket.gethostbyname(host)
 try:
     s.bind((host, port))
 except socket.error as e:
-    print(str(e))
+    print("error while trying s.bind in server.py" + str(e))
 
 
 players_positions = ["0:50,50", "1:100,100"]
@@ -63,7 +63,7 @@ def handle_client(connection, player_id):
 
             connection.sendall(str.encode(reply))
         except socket.error as err:
-            print("Error while receiving position or sending it back" + str(err))
+            print("Error while receiving position or sending it back (server.py)" + str(err))
             break
 
         print("Connection closed.")
